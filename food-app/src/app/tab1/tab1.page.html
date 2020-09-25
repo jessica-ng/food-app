@@ -13,30 +13,40 @@
     </ion-toolbar>
   </ion-header>
 
+  
   <!-- Inputs with labels -->
+    <ion-searchbar showCancelButton="focus" [(ngModel)]="foodName" (ionChange)="search(foodName)"></ion-searchbar>
+    <!-- <ion-input type='text' [(ngModel)]="foodName"></ion-input> -->
+
   <ion-item>
-    <ion-label>Enter food name</ion-label>
-    <ion-input type='text' [(ngModel)]="foodName"></ion-input>
+    <ion-label>Select Searchtype</ion-label>
+    <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+      <ion-select-option value="">All</ion-select-option>
+      <ion-select-option value="recipes">Recipes</ion-select-option>
+      <ion-select-option value="foods">Foods</ion-select-option>
+    </ion-select>
   </ion-item>
 
 
-
-  <ion-button expand="full" name="star" (click)="search(foodName)">
+  <!-- <ion-button expand="full" name="star" (click)="search(foodName)">
     <ion-icon ></ion-icon>
     Submit
-  </ion-button>  
+  </ion-button>   -->
   
   <ion-list>
  
-    <ion-item button *ngFor="let item of (results | async)">
-      <!-- <ion-avatar slot="start">
-        <img [src]="item.Poster" *ngIf="item.Poster != 'N/A'">
-      </ion-avatar> -->
- 
+    <ion-item button *ngFor="let item of (results | async)" [routerLink]="['/', 'recipes', item.recipe.label]">
+
+       <ion-avatar slot="start">
+        <ion-img [src]="item.recipe.image"></ion-img>
+      </ion-avatar>
+
       <ion-label text-wrap>
-        <h3>{{ item.description }}</h3>
-        {{ item.additionalDescriptions }}
+        <h2>{{ item.recipe.label }}</h2>
+        {{ item.recipe.healthLabels }}
       </ion-label>
+
+
  
       <!-- <ion-icon slot="end" *ngIf="item.Type == 'movie'" name="videocam"></ion-icon>
       <ion-icon slot="end" *ngIf="item.Type == 'series'" name="tv"></ion-icon>

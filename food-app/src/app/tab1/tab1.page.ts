@@ -24,7 +24,7 @@ export class Tab1Page {
     console.log(foodName);
     // this.results = this.foodService.searchData(foodName);
     // console.log(this.results.subscribe(x => console.log(x)));
-    this.results = this.foodService.searchData(this.foodName);
+    this.results = this.foodService.searchRecipe(this.foodName);
     console.log(this.results)
   }
 }
